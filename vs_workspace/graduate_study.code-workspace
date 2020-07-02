@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "..\\bluetooth RC"
+		},
+		{
+			"path": "..\\Pro micro IR racer"
+		},
+		{
+			"path": "..\\Uno IR racer"
+		},
+		{
+			"path": "context"
+		}
+	]
+}
