@@ -11,6 +11,18 @@
 		},
 		{
 			"path": "context"
+		},
+		{
+			"name": "Uno multiple racer",
+			"path": "..\\Uno multiple racer"
+		},
+		{
+			"name": "joystick racer",
+			"path": "..\\joystick racer"
+		},
+		{
+			"name": "Uno ultrasonic",
+			"path": "..\\Uno ultrasonic"
 		}
 	]
 }

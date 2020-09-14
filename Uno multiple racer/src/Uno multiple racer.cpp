@@ -1,42 +1,6 @@
-/*#include <Arduino.h>
-
-void setup() {
-  pinMode(5,OUTPUT);
-  pinMode(6,OUTPUT);take2
-}
-
-void loop() {take1
-  digitalWrite(5,HIGH);
-  digitalWrite(6,HIGH);
-  delay(1000);
-  digitalWrite(5,LOW);
-  digitalWrite(6,LOW);
-  delay(1000);
-}*/
-
-  /*if(RED==A)
-    {
-      _mForward();
-      _stepStop();
-    }
-    else if (RED==B)
-    {
-      _mleft();
-      _stepStop();
-    }
-    else if (RED==C)
-    {
-      _mright();
-      _stepStop();
-    }
-    else if (RED==D)
-    {
-      _mBack();
-      _stepStop();
-    }
-  }*///take3
-
-#include "IRremote.h"//take4
+#include <Arduino.h>
+#include <IRremote.h>
+#include <HCSR04.h>
 
 #define A 0xFF629D //16736925 forward
 #define B 0xFF22DD //left 
@@ -48,29 +12,63 @@ int l=6,r=5;
 int receiver = 3;
 unsigned long RED;
 
-int LED = 17;
-
 IRrecv irrecv(receiver);     // create instance of 'irrecv'
 decode_results results;      // create instance of 'decode_results'
 
 void _mForward()
 { 
       Serial.println("VOL+ forward.");
-       digitalWrite(r,HIGH);
-       digitalWrite(l,HIGH);
-       delay(500);
+      for (int i = 100; i < 250; i++)
+      {
+        analogWrite(r,i);
+        analogWrite(l,i);
+        delay(10);
+      }
 }
 void _mleft()
 {
       Serial.println("FAST FORWARD left.");
-       digitalWrite(r,HIGH);
-       digitalWrite(l,LOW);
+        analogWrite(r,250);
+        analogWrite(l,0);
 }
 void _mright()
 {
       Serial.println("FAST FORWARD right.");
-       digitalWrite(r,LOW);
-       digitalWrite(l,HIGH);
+       analogWrite(r,0);
+       analogWrite(l,250);
+}
+void _mfleft()
+{
+      for (int i = 250; i > 50; i--)
+      {
+        analogWrite(r,250);
+        analogWrite(l,i);
+        delay(1);
+      }
+      delay(400);
+      for (int i2 = 50; i2 < 250; i2++)
+      {
+        analogWrite(r,250);
+        analogWrite(l,i2);
+        delay(1);
+      }     
+}
+
+void _mfright()
+{
+      for (int i = 250; i > 50; i--)
+      {
+        analogWrite(r,i);
+        analogWrite(l,250);
+        delay(1);
+      }
+      delay(400);
+      for (int i2 = 50; i2 < 250; i2++)
+      {
+        analogWrite(r,i2);
+        analogWrite(l,250);
+        delay(1);
+      }     
 }
 void _mStop()
 {
@@ -105,7 +103,7 @@ void loop() {
     if (RED==A)
     {
       _mForward();
-      _mstepStop();
+      //_mstepStop();
       
     }
     else if (RED==B)
@@ -124,41 +122,17 @@ void loop() {
     }
     else if (RED==E)
     {
-      _mleft();
-      delay(200);
-      _mForward();
-      _mstepStop();
+      _mfleft();
+      //delay(400);
+      //_mForward();
+      //_mstepStop();
     }
     else if (RED==f)
     {
-      _mright();
-      delay(200);
-      _mForward();
-      _mstepStop();
+      _mfright();
+      //delay(400);
+      //_mForward();
+      //_mstepStop();
     }
-    
-
-    /*switch (RED) take 5
-    {
-    case A:
-      _mForward();
-      delay(10000);
-      _mstepStop();
-      break;
-    case B:
-      _mleft();
-      _mstepStop();
-      break;
-    case C:
-      _mright();
-      _mstepStop();
-      break;
-    case D:
-      _mstepStop();
-      break;
-    default:
-      break;
-    }*/
-
   }
 }
